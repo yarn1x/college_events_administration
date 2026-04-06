@@ -1,0 +1,94 @@
+[
+  {
+    "ContainingType": "college_events_admin_API.Controllers.ControllerEvents",
+    "Method": "GETEventList",
+    "RelativePath": "college/admin/events",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "college_events_admin_API.Controllers.ControllerEvents",
+    "Method": "GETEventGroups",
+    "RelativePath": "college/admin/events/{EventId}/groups",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "EventId",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "college_events_admin_API.Controllers.ControllerEvents",
+    "Method": "GETCategoryList",
+    "RelativePath": "college/admin/events/categories",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "college_events_admin_API.Controllers.ControllerEvents",
+    "Method": "GETPlaceList",
+    "RelativePath": "college/admin/events/places",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": [
+      {
+        "Type": "System.Collections.Generic.List\u00601[[college_events_admin_API.Models.Location, college_events_admin_API, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "college_events_admin_API.Controllers.ControllerGroups",
+    "Method": "GETGroupList",
+    "RelativePath": "college/admin/groups",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "college_events_admin_API.Controllers.ControllerGroups",
+    "Method": "GETGroupEventsOnlyStatistic",
+    "RelativePath": "college/admin/groups/{GroupID}/statistic",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "GroupID",
+        "Type": "",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "college_events_admin_API.Controllers.ControllerOrganizers",
+    "Method": "GETOrganizersList",
+    "RelativePath": "college/admin/organizers",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  }
+]
