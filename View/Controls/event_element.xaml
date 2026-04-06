@@ -1,0 +1,104 @@
+﻿<UserControl x:Class="college_events_desktop.View.Controls.event_element"
+			 xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+			 xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+			 xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+			 xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+			 xmlns:local="clr-namespace:college_events_desktop.View.Controls"
+			 mc:Ignorable="d"
+			 Height="110">
+	<Grid>
+		<Border Background="White" BorderBrush="#FF666666" BorderThickness="1,1,1,1" CornerRadius="15,15,15,15" Grid.ColumnSpan="7" Grid.RowSpan="2"/>
+		<Border x:Name="event_status" CornerRadius="15" HorizontalAlignment="Left" VerticalAlignment="Top" Background="#FF676767" Width="25" Height="25" Margin="-5,-5,0,0"/>
+
+		<!--Текстовые поля вывода информации-->
+		<Grid Margin="0,20,0,20">
+			<Grid.ColumnDefinitions>
+				<ColumnDefinition/>
+				<ColumnDefinition/>
+				<ColumnDefinition Width="0.7*"/>
+				<ColumnDefinition Width="0.6*"/>
+				<ColumnDefinition Width="0.8*"/>
+				<ColumnDefinition Width="0.8*"/>
+				<ColumnDefinition Width="220"/>
+			</Grid.ColumnDefinitions>
+
+
+			<Border BorderBrush="#FFA2A2A2" BorderThickness="0,0,1,0">
+				<TextBlock x:Name="text_name" Text="Название целого мероприятия ахахахах как много текста" VerticalAlignment="Center" TextWrapping="WrapWithOverflow" FontWeight="Bold" FontSize="14" HorizontalAlignment="Center" Margin="5,0,5,0" Cursor="Hand" MouseDown="event_text_copy_Click"/>
+			</Border>
+			
+			<Border BorderBrush="#FFA2A2A2" BorderThickness="0,0,1,0" Grid.Column="1">
+				<TextBlock x:Name="text_organizer_name" Text="оооочень длинное ФИО организватора" VerticalAlignment="Center" TextWrapping="WrapWithOverflow" Margin="5,0,5,0" FontSize="14" HorizontalAlignment="Center" MouseDown="event_text_copy_Click" Cursor="Hand"/>
+			</Border>
+
+			<Border BorderBrush="#FFA2A2A2" BorderThickness="0,0,1,0" Grid.Column="2">
+
+				<StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
+					<TextBlock x:Name="text_start_time" Text="Время начала" VerticalAlignment="Center" TextWrapping="WrapWithOverflow" FontWeight="Bold" FontSize="14" HorizontalAlignment="Center" Margin="5,0,0,0" MouseDown="event_text_copy_Click" Cursor="Hand"/>
+					<TextBlock Text=" - " VerticalAlignment="Center" TextWrapping="WrapWithOverflow" FontWeight="Bold" FontSize="14" HorizontalAlignment="Center"/>
+					<TextBlock x:Name="text_end_time" Text="время окончания" VerticalAlignment="Center" TextWrapping="WrapWithOverflow" FontWeight="Bold" FontSize="14" HorizontalAlignment="Center" Margin="0,0,5,0" MouseDown="event_text_copy_Click" Cursor="Hand"/>
+				</StackPanel>
+				
+			</Border>
+
+			<Border BorderBrush="#FFA2A2A2" BorderThickness="0,0,1,0" Grid.Column="3">
+				<TextBlock x:Name="text_date" Text="Дата проведения" VerticalAlignment="Center" FontWeight="Bold" FontSize="14" HorizontalAlignment="Center" Margin="5,0,5,0" MouseDown="event_text_copy_Click" Cursor="Hand"/>
+			</Border>
+			
+			<Border BorderBrush="#FFA2A2A2" BorderThickness="0,0,1,0" Grid.Column="4">
+				<TextBlock x:Name="text_direction" Text="Какое-то крутое направление" VerticalAlignment="Center" TextWrapping="WrapWithOverflow" Margin="5,0,5,0" FontSize="14" HorizontalAlignment="Center" MouseDown="event_text_copy_Click" Cursor="Hand"/>
+			</Border>
+
+			<Border BorderBrush="#FFA2A2A2" BorderThickness="0,0,1,0" Grid.Column="5">
+				<TextBlock x:Name="text_place" Text="Место проведения" VerticalAlignment="Center" TextWrapping="WrapWithOverflow" FontWeight="Bold" FontSize="14" HorizontalAlignment="Center" Margin="5,0,5,0" MouseDown="event_text_copy_Click" Cursor="Hand"/>
+			</Border>
+
+			<!--ОСТАВИТЬ Visibility=Collapsed! Кнопки действий над мероприятием. В классе event_element.cs есть логика какая кнопка будет отображена-->
+			<Button x:Name="btn_create_event_report" Grid.RowSpan="1" Grid.Column="6" Style="{DynamicResource ButtonStyle_accent}" BorderBrush="{x:Null}" VerticalAlignment="Center" Cursor="Hand" Click="btn_create_event_report_Click" Padding="5,10,5,10" Margin="10,0,10,0" Visibility="Collapsed">
+				<StackPanel Orientation="Horizontal">
+					<Border Background="White" Width="20" Height="20" Margin="0,0,5,0" >
+						<Border.OpacityMask>
+							<ImageBrush ImageSource="/View/Resources/ico_writing.png"/>
+						</Border.OpacityMask>
+					</Border>
+					<TextBlock Text="Сохранить статистику" FontSize="14"/>
+				</StackPanel>
+			</Button>
+
+			<Button x:Name="btn_see_event_report" Grid.RowSpan="2" Grid.Column="6" Style="{DynamicResource ButtonStyle_accent}" BorderBrush="{x:Null}" VerticalAlignment="Center" Cursor="Hand" Click="btn_see_event_report_Click" Padding="10,10,10,10" Margin="10,0,10,0" Background="#FF63A0D2" Visibility="Collapsed">
+				<StackPanel Orientation="Horizontal">
+					<Border Background="White" Width="20" Height="20" Margin="0,0,5,0" >
+						<Border.OpacityMask>
+							<ImageBrush ImageSource="/View/Resources/ico_eye.png"/>
+						</Border.OpacityMask>
+					</Border>
+					<TextBlock Text="Посмотреть статистику" FontSize="13"/>
+				</StackPanel>
+			</Button>
+
+			<Button x:Name="btn_edit" Grid.RowSpan="2" Grid.Column="6" Style="{DynamicResource ButtonStyle_accent}" BorderBrush="{x:Null}" VerticalAlignment="Center" Cursor="Hand" Padding="10,10,10,10" Margin="5,0,5,0" Background="DeepSkyBlue" Visibility="Collapsed" HorizontalAlignment="Center" Click="btn_edit_Click">
+				<StackPanel Orientation="Horizontal">
+					<Border Background="White" Width="20" Height="20" Margin="0,0,5,0" >
+						<Border.OpacityMask>
+							<ImageBrush ImageSource="/View/Resources/ico_pencil.png"/>
+						</Border.OpacityMask>
+					</Border>
+					<TextBlock Text="Изменить информацию" FontSize="14"/>
+				</StackPanel>
+			</Button>
+
+			<StackPanel x:Name="stack_electoral_buttons" Orientation="Horizontal" Grid.Column="6" Grid.RowSpan="1" VerticalAlignment="Center" HorizontalAlignment="Center" Visibility="Collapsed">
+				<Button x:Name="btn_claim_event" Style="{DynamicResource ButtonStyle_accent}" BorderBrush="{x:Null}" Width="40" Height="40" Margin="0,0,5,0" Cursor="Hand">
+					<Border Background="White" Width="25" Height="25">
+						<Border.OpacityMask>
+							<ImageBrush ImageSource="/View/Resources/ico_check.png"/>
+						</Border.OpacityMask>
+					</Border>
+				</Button>
+                <Button x:Name="btn_reject_event" Style="{DynamicResource ButtonStyle_X}" Width="40" Height="40" Cursor="Hand" Content="×" FontSize="48" Padding="1,-18,1,1"/>
+            </StackPanel>
+
+		</Grid>
+
+	</Grid>
+</UserControl>
