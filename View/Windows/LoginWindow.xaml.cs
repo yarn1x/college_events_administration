@@ -1,33 +1,38 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using college_events_desktop.Model;
+using college_events_desktop.Model.ApiProvider;
+using System;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 
 namespace college_events_desktop.View.Windows
 {
-    /// <summary>
-    /// Логика взаимодействия для LoginWindow.xaml
-    /// </summary>
     public partial class LoginWindow : Window
     {
+        DataService dataService;
         public LoginWindow()
         {
             InitializeComponent();
+            dataService = new DataService(new ApiClient());
         }
 
-        private void Login_Click(object sender, RoutedEventArgs e)
+        private async void Login_Click(object sender, RoutedEventArgs e)
         {
-            new MainWindow().Show();
-            Close();
+            try
+            {
+                await dataService.GetSessionToken(edit_login.Text, edit_password.Password);
+
+                if (dataService._jwtToken == null)
+                {
+                    MessageBox.Show("Логин или пароль введён неверно, либо у вас нет прав администратора.", "Аккаунт не найден!", MessageBoxButton.OK, MessageBoxImage.Error);
+                    return;
+                }
+
+                new MainWindow().Show();
+                Close();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Система не смогла проверить ваши введённые данные. Попробуйте позже.", "Ошибка!", MessageBoxButton.OK, MessageBoxImage.Warning);
+            }
         }
     }
 }

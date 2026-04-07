@@ -3,6 +3,8 @@ using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Net.Http;
+using System.Security.Cryptography;
+using System.Text;
 using System.Threading.Tasks;
 
 namespace college_events_desktop.Model.ApiProvider
@@ -13,6 +15,24 @@ namespace college_events_desktop.Model.ApiProvider
         {
             BaseAddress = new Uri("https://localhost:7280/college/admin/")
         };
+
+        private static string ComputeSha256Hash(string rawData)
+        {
+            // Создаем экземпляр SHA256
+            using (SHA256 sha256Hash = SHA256.Create())
+            {
+                // Преобразуем входную строку в массив байтов и вычисляем хэш
+                byte[] bytes = sha256Hash.ComputeHash(Encoding.UTF8.GetBytes(rawData));
+
+                // Преобразуем байты хэша в строку в шестнадцатеричном формате
+                StringBuilder builder = new StringBuilder();
+                foreach (byte b in bytes)
+                {
+                    builder.Append(b.ToString("x2")); // формат "x2" — двухсимвольное hex-представление
+                }
+                return builder.ToString();
+            }
+        }
 
         private async Task<T> GetAsync<T>(string endpoint)
         {
@@ -31,6 +51,22 @@ namespace college_events_desktop.Model.ApiProvider
                 Console.WriteLine($"GET Api error: {ex}");
                 return default;
             }
+        }
+
+        public async Task<AuthResponse> LoginAsync(string login, string password)
+        {
+            var loginData = new { login, passwordHash = password };
+            StringContent content = new StringContent(JsonConvert.SerializeObject(loginData), Encoding.UTF8, "application/json");
+
+            HttpResponseMessage response = await _client.PostAsync("auth/login", content);
+
+            if (response.IsSuccessStatusCode)
+            {
+                var json = await response.Content.ReadAsStringAsync();
+                AuthResponse authResponse = JsonConvert.DeserializeObject<AuthResponse>(json);
+                return authResponse;
+            }
+            return null;
         }
 
 

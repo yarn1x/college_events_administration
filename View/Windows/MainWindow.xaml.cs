@@ -79,7 +79,6 @@ namespace college_events_desktop.View.Windows
         }
         #endregion
 
-
         #region Методы класса
         /// <summary>
         /// Метод, изменяющий направление индикатора развернутости меню.

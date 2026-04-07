@@ -11,6 +11,8 @@ namespace college_events_desktop.Model
     public class DataService
     {
         internal readonly ApiClient apiClient;
+        internal string _jwtToken { get; private set; }
+        internal int _jwtExpiresIn { get; private set; }
 
         public Stack<Event> events { get; private set; }
         public List<Category> categories { get; private set; }
@@ -26,6 +28,16 @@ namespace college_events_desktop.Model
             organizers = new List<Organizer>();
             groups = new List<Group>();
             places = new List<Place>();
+        }
+
+        public async Task GetSessionToken(string login, string password)
+        {
+            AuthResponse response = await apiClient.LoginAsync(login, password);
+            if (response != null)
+            {
+                _jwtToken = response.token;
+                _jwtExpiresIn = response.expiresIn;
+            }
         }
 
         public async Task LoadEventsAsync()
