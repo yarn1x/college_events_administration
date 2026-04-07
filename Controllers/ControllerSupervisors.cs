@@ -6,5 +6,10 @@ namespace college_events_admin_API.Controllers
     [Route("/college/admin/supervisors")]
     public class ControllerSupervisors : Controller
     {
+        [HttpGet]
+        public string get()
+        {
+            return "test";
+        }
     }
 }

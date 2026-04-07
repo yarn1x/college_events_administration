@@ -1,5 +1,21 @@
 [
   {
+    "ContainingType": "college_events_admin_API.Controllers.ControllerAuthorization",
+    "Method": "Login",
+    "RelativePath": "college/admin/auth/login",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "user",
+        "Type": "college_events_admin_API.Controllers.LoginRequest",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
     "ContainingType": "college_events_admin_API.Controllers.ControllerEvents",
     "Method": "GETEventList",
     "RelativePath": "college/admin/events",
@@ -90,5 +106,25 @@
     "Order": 0,
     "Parameters": [],
     "ReturnTypes": []
+  },
+  {
+    "ContainingType": "college_events_admin_API.Controllers.ControllerSupervisors",
+    "Method": "get",
+    "RelativePath": "college/admin/supervisors",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": [
+      {
+        "Type": "System.String",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
   }
 ]

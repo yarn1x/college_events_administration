@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Desktop\\Prog\\СИстемный прогер\\college_events_admin\\college_events_admin_API.csproj": {}
+    "C:\\Desktop\\Prog\\СИстемный прогер\\college_events_admin_API\\college_events_admin_API.csproj": {}
   },
   "projects": {
-    "C:\\Desktop\\Prog\\СИстемный прогер\\college_events_admin\\college_events_admin_API.csproj": {
+    "C:\\Desktop\\Prog\\СИстемный прогер\\college_events_admin_API\\college_events_admin_API.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Desktop\\Prog\\СИстемный прогер\\college_events_admin\\college_events_admin_API.csproj",
+        "projectUniqueName": "C:\\Desktop\\Prog\\СИстемный прогер\\college_events_admin_API\\college_events_admin_API.csproj",
         "projectName": "college_events_admin_API",
-        "projectPath": "C:\\Desktop\\Prog\\СИстемный прогер\\college_events_admin\\college_events_admin_API.csproj",
+        "projectPath": "C:\\Desktop\\Prog\\СИстемный прогер\\college_events_admin_API\\college_events_admin_API.csproj",
         "packagesPath": "C:\\Users\\denma\\.nuget\\packages\\",
-        "outputPath": "C:\\Desktop\\Prog\\СИстемный прогер\\college_events_admin\\obj\\",
+        "outputPath": "C:\\Desktop\\Prog\\СИстемный прогер\\college_events_admin_API\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\denma\\AppData\\Roaming\\NuGet\\NuGet.Config",
