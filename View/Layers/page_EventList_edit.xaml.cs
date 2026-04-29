@@ -25,7 +25,7 @@ namespace college_events_desktop.View.Layers
         private MainWindow mainWindow;
         private DataService _dataService;
         private Event _Event;
-        page_table_EventGroup _table;
+        page_table_EventGroup_edit _table;
         #endregion
 
         #region Конструктор класса
@@ -35,7 +35,7 @@ namespace college_events_desktop.View.Layers
             mainWindow = win as MainWindow;
             _dataService = dataService;
             _Event = _event;
-            _table = new page_table_EventGroup(mainWindow, this, _dataService, _Event);
+            _table = new page_table_EventGroup_edit(this, _dataService, _Event);
 
             Loaded += Page_EventList_edit_Loaded;
         }
@@ -52,6 +52,19 @@ namespace college_events_desktop.View.Layers
         {
             mainWindow.mainframe.GoBack();
         }
+
+        public int validation_errors_count = 0;
+        private void btn_save_Click(object sender, RoutedEventArgs e)
+        {
+            if (validation_errors_count == 0)
+            {
+                MessageBox.Show("Информация успещно обновлена!");
+            }
+            else
+            {
+                MessageBox.Show($"У вас есть ошибки ввода. Пожалуйста, исправьте их ({validation_errors_count} ошибок) перед выполнением сохранения.\n\nПодсказка:\n1. Количество участников не может быть отрицательным или содержать символы кроме цифр", "Информация", MessageBoxButton.OK, MessageBoxImage.Information);
+            }
+        }
         #endregion
 
         #region Методы класса
@@ -66,13 +79,12 @@ namespace college_events_desktop.View.Layers
             datePicker_date.Text = _Event.startDate;
             edit_startTime.Text = _Event.startTime;
             edit_endTime.Text = _Event.endTime;
-            edit_description.Text = _Event.desctiption;
+            edit_description.Text = _Event.description;
 
             await _dataService.LoadGroupsListAsync();
             await _dataService.LoadPlacesListAsync();
             await _dataService.LoadOrganizerListAsync();
 
-            //дополнительно
             try
             {
                 foreach (Place item in _dataService.places)
@@ -93,21 +105,6 @@ namespace college_events_desktop.View.Layers
                 MessageBox.Show(ex.ToString());
             }
         }
-
-
-        public int validation_errors_count = 0;
-        private void btn_save_Click(object sender, RoutedEventArgs e)
-        {
-            if (validation_errors_count == 0)
-            {
-                MessageBox.Show("Информация успещно обновлена!");
-            }
-            else
-            {
-                MessageBox.Show($"У вас есть ошибки ввода. Пожалуйста, исправьте их ({validation_errors_count} ошибок) перед выполнением сохранения.\n\nПодсказка:\n1. Количество участников не может быть отрицательным или содержать символы кроме цифр", "Информация", MessageBoxButton.OK, MessageBoxImage.Information);
-            }
-        }
         #endregion
-
     }
 }

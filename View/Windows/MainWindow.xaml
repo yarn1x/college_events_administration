@@ -131,7 +131,7 @@
 					</Grid>
 				</Button>
 
-				<ContentControl x:Name="submenu_users"/>
+                <ContentControl x:Name="submenu_users"/>
             </StackPanel>
 		</ScrollViewer>
 

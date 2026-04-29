@@ -1,5 +1,4 @@
 ﻿using college_events_desktop.DataModels;
-using college_events_desktop.Model.ApiProvider;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -19,17 +18,17 @@ using System.Windows.Shapes;
 
 namespace college_events_desktop.View.Layers.Tables
 {
-    public partial class table_tuple_EventGroup : UserControl
+    public partial class table_tuple_EventGroup_edit : UserControl
     {
         page_EventList_edit _page;
         EventGroups _group;
-        page_table_EventGroup _table;
-        public table_tuple_EventGroup(page_EventList_edit page, EventGroups group, object table)
+        page_table_EventGroup_edit _table;
+        public table_tuple_EventGroup_edit(page_EventList_edit page, EventGroups group, object table)
         {
             InitializeComponent();
             _page = page;
             _group = group;
-            _table = table as page_table_EventGroup;
+            _table = table as page_table_EventGroup_edit;
             Loaded += Table_tuple_EventGroup_Loaded;
         }
 
@@ -55,7 +54,7 @@ namespace college_events_desktop.View.Layers.Tables
                 edit_expectedParticipantsCount.Text = "0";
                 edit_expectedSuperParticipantsCount.Text = "0";
 
-                _table.stack_table_rows.Children.Add(new table_tuple_EventGroup(_page, null, _table));
+                _table.stack_table_rows.Children.Add(new table_tuple_EventGroup_edit(_page, null, _table));
             }
 
             if (combobox_group.SelectedItem == null) return;
@@ -100,7 +99,7 @@ namespace college_events_desktop.View.Layers.Tables
                 //Для каждой добавляемой в список группы, мы проходимся по уже созданным таким же combobox-ам
                 foreach (var element in _table.stack_table_rows.Children)
                 {
-                    if (element is table_tuple_EventGroup tuple)
+                    if (element is table_tuple_EventGroup_edit tuple)
                     {
                         //и смотрим совпадает ли текст в combobox с названием группы, которую хотим добавить в новый combobox
                         if (tuple.combobox_group.Text == group.groupName)

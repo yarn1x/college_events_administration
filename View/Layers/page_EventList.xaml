@@ -108,12 +108,12 @@
             </Border>
 
             <!--Заголовки мероприятий-->
-            <Grid Height="40" Margin="5,10,22,0" Background="#FFDDEEFF" >
+            <Grid Height="40" Margin="5,10,23,0" Background="#FFDDEEFF" >
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition/>
                     <ColumnDefinition/>
-                    <ColumnDefinition Width="0.7*"/>
                     <ColumnDefinition Width="0.6*"/>
+                    <ColumnDefinition Width="0.5*"/>
                     <ColumnDefinition Width="0.8*"/>
                     <ColumnDefinition Width="0.8*"/>
                     <ColumnDefinition Width="220"/>
@@ -154,7 +154,7 @@
             <TextBlock Text="Показано мероприятий: " Grid.Row="3" HorizontalAlignment="Left"/>
             <TextBlock x:Name="text_amount_of_events" Text="0"/>
 
-            <Border CornerRadius="10" Margin="20,0,0,0" Width="16" Background="#FFA7A7A7"/>
+            <Border CornerRadius="10" Margin="40,0,0,0" Width="16" Background="#FFA7A7A7"/>
             <TextBlock Text=" : "/>
             <TextBlock x:Name="text_amount_of_gray" Text="0"/>
 

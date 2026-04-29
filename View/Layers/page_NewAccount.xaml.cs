@@ -15,14 +15,17 @@ using System.Windows.Shapes;
 
 namespace college_events_desktop.View.Layers
 {
-    /// <summary>
-    /// Логика взаимодействия для page_NewAccount.xaml
-    /// </summary>
     public partial class page_NewAccount : Page
     {
         public page_NewAccount()
         {
             InitializeComponent();
+            Loaded += Page_NewAccount_Loaded;
+        }
+
+        private void Page_NewAccount_Loaded(object sender, RoutedEventArgs e)
+        {
+            
         }
     }
 }

@@ -1,6 +1,5 @@
 ﻿using college_events_desktop.DataModels;
 using college_events_desktop.Model;
-using college_events_desktop.Model.ApiProvider;
 using college_events_desktop.View.Controls;
 using college_events_desktop.View.Layers;
 using System;
@@ -24,15 +23,15 @@ namespace college_events_desktop.View.Windows
 	{
         #region Поля класса
         page_EventList eventList;
-		internal DataService dataService { get; private set; }
+		internal DataService _dataService { get; private set; }
         #endregion
 
         #region Конструктор
-        public MainWindow()
+        public MainWindow(DataService dataService)
 		{
 			InitializeComponent();
-            dataService = new DataService(new ApiClient());
-            eventList = new page_EventList(this, dataService);
+            _dataService = dataService;
+            eventList = new page_EventList(this, _dataService);
 			Loaded += MainWindow_Loaded;
 		}
         #endregion

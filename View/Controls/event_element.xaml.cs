@@ -2,6 +2,7 @@
 using college_events_desktop.Model;
 using college_events_desktop.View.Layers;
 using college_events_desktop.View.Windows;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -14,6 +15,7 @@ using System.Windows.Data;
 using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
+using System.Windows.Media.Animation;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
@@ -105,7 +107,7 @@ namespace college_events_desktop.View.Controls
 
 		private void btn_create_event_report_Click(object sender, RoutedEventArgs e)
 		{
-			mainWindow.mainframe.Navigate(new page_EventList_save());
+			mainWindow.mainframe.Navigate(new page_EventList_save(mainWindow, _dataService, _Event));
 		}
 
 		private void btn_see_event_report_Click(object sender, RoutedEventArgs e)
@@ -120,16 +122,6 @@ namespace college_events_desktop.View.Controls
 				Title = _Event.title + ". Редактирование мероприятия"
 			};
 			mainWindow.mainframe.Navigate(page);
-		}
-
-		private async void event_text_copy_Click(object sender, MouseButtonEventArgs e)
-		{
-			await Application.Current.Dispatcher.InvokeAsync(() =>
-			{
-				var text = sender as TextBlock;
-				Clipboard.SetText(text.Text);
-			});
-
 		}
 
 		private void SetElementTag()
@@ -149,8 +141,105 @@ namespace college_events_desktop.View.Controls
             });
 
             Tag = _Event.statusId;
-            if (hasConflict) Tag = -1;
+            if (hasConflict && (int)Tag == 1) Tag = -1;
             else if ((int)Tag == 5) Tag = 2;
+        }
+
+        private async void event_text_copy_Click(object sender, RoutedEventArgs e)
+		{
+			try
+			{
+				var elem = sender as Button;
+				var text = elem.FindName(elem.Tag.ToString()) as TextBlock;
+				Clipboard.SetText(text.Text);
+
+				var position = Mouse.GetPosition(grid_main);
+				ClipboardPlaceholder textBlock = new ClipboardPlaceholder();
+				textBlock.Margin = new Thickness(position.X - (textBlock.Width / 2), position.Y - 40, 0, 0);
+                grid_main.Children.Add(textBlock);
+				await Task.Delay(1000);
+				await Task.WhenAll(
+					MoveObject<ClipboardPlaceholder>(textBlock, new Point(textBlock.Margin.Left, textBlock.Margin.Top), new Point(textBlock.Margin.Left, textBlock.Margin.Top - 70), 200, EasingMode.EaseInOut),
+					ChangeObjectOpacity<ClipboardPlaceholder>(textBlock, 1, 0, 200, EasingMode.EaseOut)
+				).ContinueWith(_ =>
+				{
+					Application.Current.Dispatcher.Invoke(() => { 
+						if (grid_main.Children.Contains(textBlock))
+						{
+							grid_main.Children.Remove(textBlock);
+						}
+					});
+                });
+            }
+			catch (Exception ex)
+			{
+				MessageBox.Show(ex.Message);
+			}
+		}
+		private async Task MoveObject<T>(T element, Point startPos, Point targetPos, int durationMs = 1000, EasingMode? easingMode = null)
+			where T : FrameworkElement
+		{
+            var startX = startPos.X;
+            var startY = startPos.Y;
+            var targetX = targetPos.X;
+            var targetY = targetPos.Y;
+
+			IEasingFunction easingFunction = null;
+			if (easingMode.HasValue) { easingFunction = new QuadraticEase { EasingMode = easingMode.Value }; }
+            var animationX = new ThicknessAnimation
+            {
+                From = new Thickness(startX, startY, 0, 0),
+                To = new Thickness(targetX, targetY, 0, 0),
+                Duration = TimeSpan.FromMilliseconds(durationMs),
+                EasingFunction = easingFunction
+            };
+
+
+            var tcs = new TaskCompletionSource<bool>();
+            await Application.Current.Dispatcher.InvokeAsync(() => {
+                // Подписываемся на завершение анимации
+                EventHandler handler = null;
+                handler = (s, e) =>
+                {
+                    animationX.Completed -= handler;
+                    tcs.SetResult(true);
+                };
+
+                animationX.Completed += handler;
+
+                // Запускаем анимации
+                element.BeginAnimation(MarginProperty, animationX);
+            });
+            await tcs.Task;
+        }
+		private async Task ChangeObjectOpacity<T>(T element, double startOpacity, double targetOpacity, int durationMs = 1000, EasingMode? easingMode = null) 
+			where T : FrameworkElement
+		{
+            IEasingFunction easingFunction = null;
+            if (easingMode.HasValue) { easingFunction = new QuadraticEase { EasingMode = easingMode.Value }; }
+            DoubleAnimation animation = new DoubleAnimation()
+			{
+				From = startOpacity, 
+				To = targetOpacity,
+				Duration = TimeSpan.FromMilliseconds(durationMs),
+				EasingFunction = easingFunction
+			};
+            var tcs = new TaskCompletionSource<bool>();
+            await Application.Current.Dispatcher.InvokeAsync(() => {
+                // Подписываемся на завершение анимации
+                EventHandler handler = null;
+                handler = (s, e) =>
+                {
+                    animation.Completed -= handler;
+                    tcs.SetResult(true);
+                };
+
+                animation.Completed += handler;
+
+                // Запускаем анимации
+                element.BeginAnimation(OpacityProperty, animation);
+            });
+            await tcs.Task;
         }
 	}
 }

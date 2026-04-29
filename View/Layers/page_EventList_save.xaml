@@ -5,11 +5,92 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:college_events_desktop.View.Layers"
       mc:Ignorable="d" 
-      d:DesignHeight="450" d:DesignWidth="800"
+      d:DesignHeight="900" d:DesignWidth="800"
       Title="Составление отчёта"
       Background="White">
 
     <Grid>
-        <TextBlock Text="Это страница составления отчёта по пройденому мероприятию" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="50"/>
+            <RowDefinition Height="0.6*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="50"/>
+        </Grid.RowDefinitions>
+
+        <!--Заголовок-->
+        <Border Background="#FFDDEEFF">
+            <StackPanel Orientation="Horizontal">
+                <TextBlock x:Name="text_header" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="10,0,0,0" FontSize="18" Text="Название мероприятия" FontWeight="Bold" Foreground="#FF666666"/>
+                <TextBlock HorizontalAlignment="Left" VerticalAlignment="Center" FontSize="18" Text=". Составление отчёта" FontWeight="Bold" Foreground="#FF666666"/>
+            </StackPanel>
+        </Border>
+
+        <ScrollViewer Grid.Row="1" VerticalAlignment="Top">
+            <StackPanel>
+
+                <!--Формы заполнения-->
+                <Grid Margin="10">
+                    <Grid.RowDefinitions>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="0.4*"/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+
+                    <Border CornerRadius="0, 0, 5, 0" BorderThickness="0,0,0,1" BorderBrush="#FFABADB3">
+                        <TextBlock Text="Название мероприятия" VerticalAlignment="Center" HorizontalAlignment="Left" FontSize="16"/>
+                    </Border>
+                    <TextBox x:Name="edit_event_name" Margin="5" Grid.Row="0" Text="Название мероприятия" VerticalContentAlignment="Center" Foreground="#FF666666" FontSize="16" VerticalAlignment="Center" Padding="2,1,0,2" Grid.Column="1" IsHitTestVisible="False"/>
+
+                    <Border CornerRadius="0, 0, 5, 0" BorderThickness="0,0,0,1" BorderBrush="#FFABADB3" Grid.Row="1">
+                        <TextBlock Text="Организатор" VerticalAlignment="Center" HorizontalAlignment="Left" FontSize="14" Grid.Row="1"/>
+                    </Border>
+                    <TextBox x:Name="edit_organizer_name" FontSize="14" Margin="5" Grid.Row="1" Grid.Column="1" VerticalAlignment="Center" Foreground="#FF666666" Height="24" IsHitTestVisible="False"/>
+
+                    <Border CornerRadius="0, 0, 5, 0" BorderThickness="0,0,0,1" BorderBrush="#FFABADB3" Grid.Row="2">
+                        <TextBlock Text="Направление" VerticalAlignment="Center" HorizontalAlignment="Left" FontSize="14" Grid.Row="2"/>
+                    </Border>
+                    <TextBox x:Name="edit_event_direction" Margin="5" Grid.Column="1" FontSize="14" Grid.Row="2" VerticalAlignment="Center" Foreground="#FF666666" Height="24" IsHitTestVisible="False"/>
+
+                    <Border CornerRadius="0, 0, 5, 0" BorderThickness="0,0,0,1" BorderBrush="#FFABADB3" Grid.Row="3">
+                        <TextBlock Text="Место" VerticalAlignment="Center" HorizontalAlignment="Left" FontSize="14" Grid.Row="3"/>
+                    </Border>
+                    <TextBox x:Name="edit_event_place" Margin="5" Grid.Column="2" FontSize="14" Grid.Row="3" VerticalAlignment="Center" Foreground="#FF666666" IsHitTestVisible="False"/>
+
+                    <Border CornerRadius="0, 0, 5, 0" BorderThickness="0,0,0,1" BorderBrush="#FFABADB3" Grid.Row="4">
+                        <TextBlock Text="Дата проведения" FontSize="14" HorizontalAlignment="Left" Grid.Row="4" VerticalAlignment="Center"/>
+                    </Border>
+                    <TextBox x:Name="edit_date" Grid.Column="1" Grid.Row="4" HorizontalAlignment="Left" Margin="5" Width="150" FontSize="14" Foreground="#FF666666" BorderBrush="#FFABADB3" Height="24" IsHitTestVisible="False"/>
+
+                    <Border CornerRadius="0, 0, 5, 0" BorderThickness="0,0,0,1" BorderBrush="#FFABADB3" Grid.Row="5">
+                        <TextBlock Text="Время начала" FontSize="14" HorizontalAlignment="Left" Grid.Row="5" VerticalAlignment="Center"/>
+                    </Border>
+                    <TextBox x:Name="edit_startTime" Margin="5" FontSize="14" Grid.Column="1" Grid.Row="5" HorizontalAlignment="Left" VerticalAlignment="Center" Width="150" Height="24" VerticalContentAlignment="Center" Foreground="#FF666666" IsHitTestVisible="False"/>
+
+                    <Border CornerRadius="0, 0, 5, 0" BorderThickness="0,0,0,1" BorderBrush="#FFABADB3" Grid.Row="6">
+                        <TextBlock Text="Время окончания" FontSize="14" HorizontalAlignment="Left" Grid.Row="6" VerticalAlignment="Center"/>
+                    </Border>
+                    <TextBox x:Name="edit_endTime" Margin="5" FontSize="14" Grid.Row="6" Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Center" Width="150" Height="24" VerticalContentAlignment="Center" Foreground="#FF666666" IsHitTestVisible="False"/>
+                </Grid>
+
+                <TextBox x:Name="edit_description" TextWrapping="Wrap" Text="Описание мероприятия" Margin="10,5,10,10" Grid.Row="4" Foreground="#FF666666" FontSize="14" Height="150" IsHitTestVisible="False"/>
+
+            </StackPanel>
+        </ScrollViewer>
+
+        <Frame x:Name="frame_table" Margin="10,5,10,10" Grid.Row="2"/>
+
+        <!--Навигация-->
+        <StackPanel Margin="5" Orientation="Horizontal" Grid.Row="6">
+            <Button x:Name="btn_goback" Style="{DynamicResource ButtonStyle_accent_extra}" Width="140" FontSize="14" Content="Назад" Click="goback_Click"/>
+            <Button x:Name="btn_save" Style="{DynamicResource ButtonStyle_accent}" Width="140" FontSize="14" Content="Сохранить" Margin="10,0,0,0" Click="btn_save_Click"/>
+        </StackPanel>
     </Grid>
 </Page>

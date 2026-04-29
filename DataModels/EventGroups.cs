@@ -1,10 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel;
-using System.Data;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace college_events_desktop.DataModels
 {
@@ -25,20 +20,20 @@ namespace college_events_desktop.DataModels
                 string error = String.Empty;
                 switch (columnName)
                 {
-                    case "expectedListenersCount":
+                    case nameof(expectedListenersCount):
                         if (expectedListenersCount < 0)
                         {
                             error += "Число слушателей не может быть отрицательным! ";
                         }
                         break;
-                    case "expectedParticipantsCount":
+                    case nameof(expectedParticipantsCount):
                         if (expectedParticipantsCount < 0)
                         {
                             error += "Число участников не может быть отрицательным! ";
                         }
                         break;
-                    case "expectedSuperParticipantsCount":
-                        if (expectedParticipantsCount < 0)
+                    case nameof(expectedSuperParticipantsCount):
+                        if (expectedSuperParticipantsCount < 0)
                         {
                             error += "Число супер-участников не может быть отрицательным! ";
                         }

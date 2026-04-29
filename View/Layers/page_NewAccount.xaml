@@ -33,7 +33,7 @@
                     <TextBlock FontSize="14">Фамилия <Run Text="*" Foreground="Red" FontWeight="Bold"/></TextBlock>
                     <TextBox Grid.Column="1"/>
                 </Grid>
-                <Grid Margin="0,20,0,0">
+                <Grid Margin="0,30,0,0">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="0.3*"/>
                         <ColumnDefinition/>
@@ -41,7 +41,7 @@
                     <TextBlock FontSize="14">Имя <Run Text="*" Foreground="Red" FontWeight="Bold"/></TextBlock>
                     <TextBox Grid.Column="1"/>
                 </Grid>
-                <Grid Margin="0,20,0,0">
+                <Grid Margin="0,30,0,0">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="0.3*"/>
                         <ColumnDefinition/>
@@ -60,7 +60,7 @@
                     <TextBlock FontSize="14">Логин <Run Text="*" Foreground="Red" FontWeight="Bold"/></TextBlock>
                     <TextBox Grid.Column="1"/>
                 </Grid>
-                <Grid Margin="0,20,0,0">
+                <Grid Margin="0,30,0,0">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="0.3*"/>
                         <ColumnDefinition/>
@@ -68,8 +68,40 @@
                     <TextBlock FontSize="14">Пароль <Run Text="*" Foreground="Red" FontWeight="Bold"/></TextBlock>
                     <TextBox Grid.Column="1"/>
                 </Grid>
-                
+
                 <Border Margin="0,15,0,0" Height="2" Background="#FFCECECE"/>
+
+                <Grid Margin="0,20,0,0">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="0.3*"/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <TextBlock FontSize="14">Эл. почта</TextBlock>
+                    <TextBox Grid.Column="1"/>
+                </Grid>
+                <Grid Margin="0,30,0,0">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="0.3*"/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <TextBlock FontSize="14">Номер телефона</TextBlock>
+                    <TextBox Grid.Column="1"/>
+                </Grid>
+
+                <Border Margin="0,15,0,0" Height="2" Background="#FFCECECE"/>
+
+                <Grid Margin="0,30,0,0">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="0.3*"/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <TextBlock FontSize="14">Роли <Run Text="*" Foreground="Red" FontWeight="Bold"/></TextBlock>
+                    <ScrollViewer Grid.Column="1" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Disabled">
+                        <StackPanel x:Name="stack_roles" Orientation="Horizontal">
+                            <ComboBox Style="{DynamicResource ComboBoxStyle_flat}" Width="130"/>
+                        </StackPanel>
+                    </ScrollViewer>
+                </Grid>
                 
                 
             </StackPanel>

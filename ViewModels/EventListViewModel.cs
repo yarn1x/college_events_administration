@@ -15,7 +15,7 @@ using System.Windows;
 
 namespace college_events_desktop.ViewModels
 {
-    public class EventListViewModel : BaseViewModel
+    public class EventListViewModel
     {
         DataService _dataService;
         page_EventList _page;
@@ -40,7 +40,7 @@ namespace college_events_desktop.ViewModels
             combobox_categories.SelectedValue = "Не выбрано";
         }
 
-        public void LoadEventsInStack(Stack<Event> events)
+        public void LoadEventsInStack(List<Event> events)
         {
             var stack_events = _page.stack_events;
             //Очищаем StackPanel от дочерних элементов и выводим список мероприятий в него же

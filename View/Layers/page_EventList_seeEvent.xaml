@@ -10,6 +10,6 @@
       Background="White">
 
     <Grid>
-        <TextBlock Text="Это страница просмотра отчета по мероприятию" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+        <TextBlock Text="Это страница просмотра статистики" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="22"/>
     </Grid>
 </Page>

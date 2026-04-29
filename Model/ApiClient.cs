@@ -1,18 +1,21 @@
 ﻿using college_events_desktop.DataModels;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
 using System.Net.Http;
+using System.Net.Http.Headers;
 using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace college_events_desktop.Model.ApiProvider
+namespace college_events_desktop.Model
 {
     public class ApiClient
     {
-        private readonly HttpClient _client = new HttpClient()
+        public readonly HttpClient _client = new HttpClient()
         {
+            //BaseAddress = new Uri("http://192.168.1.253:33679/college/admin/")
             BaseAddress = new Uri("https://localhost:7280/college/admin/")
         };
 
@@ -76,7 +79,7 @@ namespace college_events_desktop.Model.ApiProvider
         /// <returns>
         /// Список мероприятий. Новое мероприятие добавляется в начало списка
         /// </returns>
-        internal async Task<Stack<Event>> GetAllEventsAsync() => await GetAsync<Stack<Event>>("events");
+        internal async Task<List<Event>> GetAllEventsAsync() => await GetAsync<List<Event>>("events");
 
         /// <summary>
         /// GET Запрос к API

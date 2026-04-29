@@ -1,5 +1,5 @@
 ﻿using college_events_desktop.DataModels;
-using college_events_desktop.Model.ApiProvider;
+using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,7 +14,7 @@ namespace college_events_desktop.Model
         internal string _jwtToken { get; private set; }
         internal int _jwtExpiresIn { get; private set; }
 
-        public Stack<Event> events { get; private set; }
+        public List<Event> events { get; private set; }
         public List<Category> categories { get; private set; }
         public List<Organizer> organizers {  get; private set; }
         public List<Group> groups { get; private set; }
@@ -23,7 +23,7 @@ namespace college_events_desktop.Model
         public DataService(ApiClient apiClient)
         {
             this.apiClient = apiClient;
-            events = new Stack<Event>();
+            events = new List<Event>();
             categories = new List<Category>();
             organizers = new List<Organizer>();
             groups = new List<Group>();
@@ -38,6 +38,8 @@ namespace college_events_desktop.Model
                 _jwtToken = response.token;
                 _jwtExpiresIn = response.expiresIn;
             }
+            apiClient._client.DefaultRequestHeaders.Clear();
+            apiClient._client.DefaultRequestHeaders.Add("Authorization", $"Bearer {_jwtToken}");
         }
 
         public async Task LoadEventsAsync()

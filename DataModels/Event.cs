@@ -15,7 +15,7 @@ namespace college_events_desktop.DataModels
         public int duration { get; set; }
         public string endDate { get; set; }
         public string endTime { get; set; }
-        public string desctiption { get; set; }
+        public string description { get; set; }
         public int categoryId { get; set; }
         public string categoryName { get; set; }
         public string place { get; set; }

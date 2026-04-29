@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -23,6 +24,19 @@ namespace college_events_desktop.View.Controls
         public loading_interface()
         {
             InitializeComponent();
+        }
+
+        public void RemoveInterface(Grid container)
+        {
+            container.Children.Remove(this);
+        }
+        public void RemoveInterface(StackPanel container)
+        {
+            container.Children.Remove(this);
+        }
+        public void RemoveInterface(Canvas container)
+        {
+            container.Children.Remove(this);
         }
     }
 }

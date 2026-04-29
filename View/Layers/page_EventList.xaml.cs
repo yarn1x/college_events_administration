@@ -1,29 +1,16 @@
 ﻿using college_events_desktop.DataModels;
 using college_events_desktop.Model;
-using college_events_desktop.Model.ApiProvider;
 using college_events_desktop.View.Controls;
 using college_events_desktop.View.Windows;
 using college_events_desktop.ViewModels;
-using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Diagnostics;
-using System.Globalization;
 using System.Linq;
-using System.Net.Http;
-using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Animation;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace college_events_desktop.View.Layers
 {
@@ -71,8 +58,8 @@ namespace college_events_desktop.View.Layers
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show($"Произошла ошибка при получении списка мероприятий.\n\nКод ошибки: AA002\nИнформация для разработчика:\n{ex.Message}\n\nТело ошибки скопировано в буфер обмена", "Ошибка!", MessageBoxButton.OK, MessageBoxImage.Error);
-                    MessageBox.Show("Показан список до обновления страницы!", "Внимание!", MessageBoxButton.OK, MessageBoxImage.Warning);
+                    MessageBox.Show($"Произошла ошибка при получении списка мероприятий.\n\nCode=page_EventListAA002\nMessage={ex.Message}\n\nТело ошибки скопировано в буфер обмена", "Ошибка!", MessageBoxButton.OK, MessageBoxImage.Error);
+                    //MessageBox.Show("Показан список до обновления страницы!", "Внимание!", MessageBoxButton.OK, MessageBoxImage.Warning);
                     Clipboard.SetText(ex.ToString());
                 }
 
@@ -101,7 +88,7 @@ namespace college_events_desktop.View.Layers
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Произошла ошибка применения фильтра поиска.\n\nКод ошибки: AA001\nИнформация для разработчика:\n{ex.Message}\n\nТело ошибки скопировано в буфер обмена", "Ошибка!", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show($"Произошла ошибка применения фильтра поиска.\n\nCode=page_EventListAA001\nMessage={ex.Message}\n\nТело ошибки скопировано в буфер обмена", "Ошибка!", MessageBoxButton.OK, MessageBoxImage.Error);
                 Clipboard.SetText(ex.ToString());
             }
         }
@@ -130,7 +117,7 @@ namespace college_events_desktop.View.Layers
                 if (filterStates[child.Tag.ToString()] == false && isFilterActive) continue;
 
                 //Определяем, есть ли в плашке мероприятия инфа, которую мы ввели в TextBox
-                bool containsSearchingText = child.text_name.Text.ToLower().Contains(lowerSearchText) || child.text_organizer_name.Text.ToLower().Contains(lowerSearchText) || child.text_start_time.Text.ToLower().Contains(lowerSearchText) || child.text_end_time.Text.ToLower().Contains(lowerSearchText) || child.text_date.Text.ToLower().Contains(lowerSearchText) || child.text_direction.Text.ToLower().Contains(lowerSearchText) || child.text_place.Text.ToLower().Contains(lowerSearchText);
+                bool containsSearchingText = child.text_name.Text.ToLower().Contains(lowerSearchText) || child.text_organizer_name.Text.ToLower().Contains(lowerSearchText) || $"{child.text_start_time.Text.ToLower()} - {child.text_end_time.Text.ToLower()}".Contains(lowerSearchText) || child.text_date.Text.ToLower().Contains(lowerSearchText) || child.text_direction.Text.ToLower().Contains(lowerSearchText) || child.text_place.Text.ToLower().Contains(lowerSearchText);
 
                 //При условии, что текст из TextBox всё таки присутствует в плашке мероприятия, оставим его видимым в списке, иначе убираем визуальное отображение
                 child.Visibility = containsSearchingText ? Visibility.Visible : Visibility.Collapsed;

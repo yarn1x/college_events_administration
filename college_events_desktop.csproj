@@ -56,6 +56,7 @@
     <Reference Include="Newtonsoft.Json, Version=13.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>packages\Newtonsoft.Json.13.0.4\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
+    <Reference Include="PresentationFramework.Aero2" />
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
@@ -84,13 +85,17 @@
     <Compile Include="DataModels\Category.cs" />
     <Compile Include="DataModels\Event.cs" />
     <Compile Include="DataModels\EventGroups.cs" />
+    <Compile Include="DataModels\EventGroupsActualAttendances.cs" />
     <Compile Include="DataModels\Group.cs" />
     <Compile Include="DataModels\Organizer.cs" />
     <Compile Include="DataModels\Place.cs" />
-    <Compile Include="Model\ApiProvider.cs" />
+    <Compile Include="DataModels\Supervisor.cs" />
+    <Compile Include="Model\ApiClient.cs" />
     <Compile Include="Model\DataService.cs" />
-    <Compile Include="ViewModels\BaseViewModel.cs" />
     <Compile Include="ViewModels\EventListViewModel.cs" />
+    <Compile Include="View\Controls\ClipboardPlaceholder.xaml.cs">
+      <DependentUpon>ClipboardPlaceholder.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\Controls\events_nav_buttons.xaml.cs">
       <DependentUpon>events_nav_buttons.xaml</DependentUpon>
     </Compile>
@@ -100,11 +105,14 @@
     <Compile Include="View\Controls\loading_interface.xaml.cs">
       <DependentUpon>loading_interface.xaml</DependentUpon>
     </Compile>
-    <Compile Include="View\Layers\Tables\page_table_EventGroup.xaml.cs">
-      <DependentUpon>page_table_EventGroup.xaml</DependentUpon>
+    <Compile Include="View\Layers\Tables\page_table_EventGroup_edit.xaml.cs">
+      <DependentUpon>page_table_EventGroup_edit.xaml</DependentUpon>
     </Compile>
-    <Compile Include="View\Layers\Tables\table_tuple_EventGroup.xaml.cs">
-      <DependentUpon>table_tuple_EventGroup.xaml</DependentUpon>
+    <Compile Include="View\Layers\Tables\page_table_EventGroup_save.xaml.cs">
+      <DependentUpon>page_table_EventGroup_save.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\Layers\Tables\table_tuple_EventGroup_edit.xaml.cs">
+      <DependentUpon>table_tuple_EventGroup_edit.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\Controls\SearchBar.xaml.cs">
       <DependentUpon>SearchBar.xaml</DependentUpon>
@@ -130,12 +138,19 @@
     <Compile Include="View\Layers\page_NewAccount.xaml.cs">
       <DependentUpon>page_NewAccount.xaml</DependentUpon>
     </Compile>
+    <Compile Include="View\Layers\Tables\table_tuple_EventGroup_save.xaml.cs">
+      <DependentUpon>table_tuple_EventGroup_save.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\Windows\LoginWindow.xaml.cs">
       <DependentUpon>LoginWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\Windows\MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
     </Compile>
+    <Page Include="View\Controls\ClipboardPlaceholder.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="View\Controls\events_nav_buttons.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -148,11 +163,15 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="View\Layers\Tables\page_table_EventGroup.xaml">
+    <Page Include="View\Layers\Tables\page_table_EventGroup_edit.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="View\Layers\Tables\table_tuple_EventGroup.xaml">
+    <Page Include="View\Layers\Tables\page_table_EventGroup_save.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\Layers\Tables\table_tuple_EventGroup_edit.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -185,6 +204,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="View\Layers\page_NewAccount.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\Layers\Tables\table_tuple_EventGroup_save.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -310,6 +333,9 @@
       <ProductName>.NET Framework 3.5 SP1</ProductName>
       <Install>false</Install>
     </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="View\Resources\ico_clone.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
