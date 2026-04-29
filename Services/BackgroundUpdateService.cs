@@ -4,7 +4,7 @@
     {
         private readonly IServiceProvider _serviceProvider;
         private readonly ILogger<BackgroundUpdateService> _logger;
-
+        private Timer? _timer = null;
         public BackgroundUpdateService(IServiceProvider serviceProvider, ILogger<BackgroundUpdateService> logger)
         {
             _serviceProvider = serviceProvider;
@@ -13,33 +13,34 @@
 
         protected override async Task ExecuteAsync(CancellationToken stoppingToken)
         {
-            while (!stoppingToken.IsCancellationRequested)
+            _logger.LogInformation("~~~ Фоновая служба обновления статусов мероприятия запущена ~~~");
+            _timer = new Timer(DoWork, null, TimeSpan.Zero, TimeSpan.FromMinutes(10));
+        }
+
+        private void DoWork(object? state)
+        {
+            _logger.LogInformation($"~~~ Проверка актуальности мероприятий ~~~ Время проверки: {DateTime.Now} ~~~");
+
+            try
             {
-                _logger.LogInformation($"~~~ Проверка актуальности мероприятий ~~~ Время проверки: {DateTime.Now} ~~~");
-
-                try
+                using (var scope = _serviceProvider.CreateScope())
                 {
-                    using (var scope = _serviceProvider.CreateScope())
-                    {
-                        var service = scope.ServiceProvider.GetRequiredService<EventsService>();
-                        int savedCount = service.UpdateExpiredEvents();
+                    var service = scope.ServiceProvider.GetRequiredService<EventsService>();
+                    int savedCount = service.UpdateExpiredEvents();
 
-                        if (savedCount > 0)
-                        {
-                            _logger.LogInformation($"~~~ Обновлено мероприятий: {savedCount} ~~~");
-                        }
-                        else
-                        {
-                            _logger.LogInformation($"~~~ Нет мероприятий для обновления ~~~");
-                        }
+                    if (savedCount > 0)
+                    {
+                        _logger.LogInformation($"~~~ Обновлено мероприятий: {savedCount} ~~~");
+                    }
+                    else
+                    {
+                        _logger.LogInformation($"~~~ Нет мероприятий для обновления ~~~");
                     }
                 }
-                catch (Exception ex)
-                {
-                    _logger.LogError(ex, $"~~~ Ошибка обновления статусов! {ex.Message} !!!");
-                }
-
-                await Task.Delay(600000, stoppingToken);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, $"~~~ Ошибка обновления статусов! {ex.Message} !!!");
             }
         }
     }

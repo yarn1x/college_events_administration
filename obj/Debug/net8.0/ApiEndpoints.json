@@ -91,7 +91,7 @@
     "Parameters": [
       {
         "Name": "GroupID",
-        "Type": "",
+        "Type": "System.Int32",
         "IsRequired": true
       }
     ],
@@ -109,22 +109,22 @@
   },
   {
     "ContainingType": "college_events_admin_API.Controllers.ControllerSupervisors",
-    "Method": "get",
+    "Method": "GETSupervisorList",
     "RelativePath": "college/admin/supervisors",
     "HttpMethod": "GET",
     "IsController": true,
     "Order": 0,
     "Parameters": [],
-    "ReturnTypes": [
-      {
-        "Type": "System.String",
-        "MediaTypes": [
-          "text/plain",
-          "application/json",
-          "text/json"
-        ],
-        "StatusCode": 200
-      }
-    ]
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "college_events_admin_API.Controllers.ControllerUsers",
+    "Method": "GETRolesList",
+    "RelativePath": "college/admin/users/roles",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
   }
 ]

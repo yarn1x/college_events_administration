@@ -1,10 +1,12 @@
 ﻿using college_events_admin_API.Models;
 using college_events_admin_API.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
 namespace college_events_admin_API.Controllers
 {
+    [Authorize]
     [ApiController]
     [Route("/college/admin/events")]
     public class ControllerEvents(SutrEventsDbContext db) : Controller
@@ -21,12 +23,13 @@ namespace college_events_admin_API.Controllers
                     e.EventId,
 
                     e.Title,
+                    e.Datetime,
                     StartDate = e.Datetime.ToString("dd.MM.yyyy"),
                     StartTime = e.Datetime.ToString("HH:mm"),
                     e.Duration,
                     EndDate = e.Datetime.AddMinutes(e.Duration).ToString("dd.MM.yyyy"),
                     EndTime = e.Datetime.AddMinutes(e.Duration).ToString("HH:mm"),
-                    Desctiption = e.FullDescription ?? e.ShortDescription,
+                    Description = e.FullDescription ?? e.ShortDescription,
 
                     e.CategoryId,
                     e.Category.CategoryName,
@@ -42,6 +45,7 @@ namespace college_events_admin_API.Controllers
                     e.MaxListenersCount,
                     e.MaxParticipantsCount
                 })
+                .OrderBy(e => e.StatusId).ThenBy(e => e.Datetime)
                 .ToList();
 
             return Ok(arr);

@@ -11,28 +11,25 @@ using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
-builder.Services.AddAuthorization();
+//builder.WebHost.UseUrls("http://192.168.1.253:33679");
+
+
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
     .AddJwtBearer(options =>
     {
         options.TokenValidationParameters = new TokenValidationParameters
         {
             ValidateIssuer = true, // указывает, будет ли валидироваться издатель при валидации токена
-            
             ValidIssuer = AuthOptions.ISSUER,// строка, представляющая издателя
-            
             ValidateAudience = true,// будет ли валидироваться потребитель токена
-            
             ValidAudience = AuthOptions.AUDIENCE,// установка потребителя токена
-            
             ValidateLifetime = true,// будет ли валидироваться время существования
-            
             IssuerSigningKey = AuthOptions.GetSymmetricSecurityKey(),// установка ключа безопасности
-            
             ValidateIssuerSigningKey = true,// валидация ключа безопасности
         };
     });
+builder.Services.AddAuthorization();
+
 
 
 builder.Services.AddControllers();
@@ -56,9 +53,10 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
-app.UseHttpsRedirection();
-app.UseAuthorization();
-app.UseAuthentication();
+//app.UseHttpsRedirection();
+app.UseAuthentication(); //сначала аутентификация ВАЖЕН ПОРЯДОК
+app.UseAuthorization(); //потом авторизация
 app.MapControllers();
 
+//app.Run("http://0.0.0.0:33679");
 app.Run();

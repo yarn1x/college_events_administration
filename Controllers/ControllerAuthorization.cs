@@ -1,40 +1,40 @@
 ﻿using college_events_admin_API.Models;
 using college_events_admin_API.Services;
+using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging;
 
 namespace college_events_admin_API.Controllers
 {
     [ApiController]
     [Route("/college/admin/auth")]
-    public class ControllerAuthorization(SutrEventsDbContext db, AuthorizationService service) : Controller
-    {
-        SutrEventsDbContext _db = db;
-        AuthorizationService _service = service;
+    public class ControllerAuthorization(SutrEventsDbContext db, AuthorizationService service, ILogger<ControllerAuthorization> logger) : Controller {
+        private readonly SutrEventsDbContext _db = db;
+        private readonly AuthorizationService _service = service;
+        //private readonly ILogger<ControllerAuthorization> _logger = logger;
 
         [HttpPost("login")]
-        public IActionResult Login([FromBody] LoginRequest user)
-        {
-            try
-            {
-                var db_response = _db.UserUsertypes
-                    .FirstOrDefault(u => u.TypeId == 1 && u.Login.Login == user.login && u.Login.PasswordHash == user.passwordHash);
+        public IActionResult Login([FromBody] LoginRequest user) {
+            try {
+                //Учётная запись должна иметь тип 1 или 4 (админ или супер-админ), логин и пароль должны совпадать с полученными данными из запроса
+                var db_response = _db.UserUsertypes.FirstOrDefault(u => 
+                    (u.TypeId == 1 || u.TypeId == 4) &&
+                    EF.Functions.Collate(u.Login.Login, "Latin1_General_CS_AS") == user.login &&
+                    EF.Functions.Collate(u.Login.PasswordHash, "Latin1_General_CS_AS") == user.passwordHash
+                );
 
+                //если учетка не найдена, возврат неверной авторизации
                 if (db_response == null) return Unauthorized("Invalid credentials");
-                
                 var jwt = _service.GenerateJwtToken(user);
-
                 return Ok(new {Token = jwt, ExpiresIn = 120});
             }
-            catch
-            {
+            catch {
                 return BadRequest();
             }
         }
     }
-
-    public class LoginRequest
-    {
+    public class LoginRequest {
         public required string login { get; set; }
         public required string passwordHash { get; set; }
     }

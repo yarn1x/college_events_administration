@@ -1,8 +1,10 @@
 ﻿using college_events_admin_API.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace college_events_admin_API.Controllers
 {
+    [Authorize]
     [ApiController]
     [Route("/college/admin/organizers")]
     public class ControllerOrganizers(SutrEventsDbContext db) : Controller
@@ -14,6 +16,7 @@ namespace college_events_admin_API.Controllers
         {
             var arr = _db.UserUsertypes.Select(u => new
             {
+                u.Login.LoginId,
                 u.Login.Username.FirstName,
                 u.Login.Username.LastName,
                 u.Login.Username.MiddleName,
@@ -21,8 +24,9 @@ namespace college_events_admin_API.Controllers
                 u.Type.TypeName,
                 u.Login.Email,
                 u.Login.MobilePhone,
+                eventsCount = _db.Events.Where(uid => uid.OrganizerId == u.LoginId).Count()
             })
-                .Where(t => t.TypeId == 3)
+            .Where(t => t.TypeId == 3)
             .ToList();
 
             return Ok(arr);
